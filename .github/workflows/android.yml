@@ -1,5 +1,4 @@
-name: Android CI
-
+name: Build And Deploy App To Firebase Distribution
 on:
   push:
   # you define that your workflow should only trigger when you push to your master branch. Because a merge always includes also a push,
