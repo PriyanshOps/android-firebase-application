@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "157306660924",
+    "project_id": "news-app-5aead",
+    "storage_bucket": "news-app-5aead.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157306660924:android:da36217a6b7a500f0dbb39",
+        "android_client_info": {
+          "package_name": "com.kordex.newsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157306660924-bt2ilrqvii7pkl3nuk08iu6fkdk9gvn0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Kto_B6gxg0G4w75zf6WcIF_nVXQC3W8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157306660924-bt2ilrqvii7pkl3nuk08iu6fkdk9gvn0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
