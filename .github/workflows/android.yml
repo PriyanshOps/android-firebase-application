@@ -26,6 +26,11 @@ jobs:
          echo "go to build"
          cd build
          ls
+         echo "=== go to /app/build/outputs/"
+         pwd   
+         cd outputs
+         echo "=== utputs/"               
+         ls
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
