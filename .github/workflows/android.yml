@@ -30,6 +30,9 @@ jobs:
          pwd   
          cd outputs
          echo "=== utputs/"               
+         cd apk
+         echo "apk code"
+         pwd
          ls
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
