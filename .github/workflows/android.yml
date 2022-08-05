@@ -21,7 +21,6 @@ jobs:
         run: ./gradlew assembleDebug
       - name: check apk file
         run: pwd
-        run: ls
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
