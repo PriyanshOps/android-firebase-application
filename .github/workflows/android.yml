@@ -23,6 +23,9 @@ jobs:
          pwd
          cd app/
          ls
+         echo "go to build"
+         cd build
+         ls
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
