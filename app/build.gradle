@@ -13,7 +13,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.project.newsapp"
+        applicationId "com.kordex.newsapp"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
