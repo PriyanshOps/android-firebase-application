@@ -36,6 +36,7 @@ jobs:
          echo "cd  debug"
          pwd
          cd debug
+         pwd
          ls
          
       - name: Upload artifact to Firebase App Distribution
@@ -44,4 +45,4 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: test-team
-          file: app/build/outputs/apk/app.apk
+          file: app/build/outputs/apk/debug/app-debug.apk
