@@ -1,9 +1,7 @@
 name: Build And Deploy App To Firebase Distribution
-on:
-  push:
-  # you define that your workflow should only trigger when you push to your master branch. Because a merge always includes also a push,
-  # this workflow will also trigger when you merge your development into your master branch.
-    branches: [ main ]  
+
+on: [ pull_request ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
