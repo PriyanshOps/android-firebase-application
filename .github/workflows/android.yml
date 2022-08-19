@@ -18,8 +18,9 @@ jobs:
         run: chmod +x ./gradlew
       - name: build clean
         run: | 
-          gradle clean --test 2>&1 | tee /tmp/gradle.out   
-          cat /tmp/gradle.out
+          gradle clean --test 2>&1 >> /outlook.out  
+          echo "this is file ============================================"
+          cat /outlook.out
       - name: build debug
         run: ./gradlew assembleDebug
       - name: Upload artifact to Firebase App Distribution
