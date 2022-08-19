@@ -4,6 +4,8 @@ name: Build And Deploy App To Firebase Distribution
 on:  
   push:
     branches: [ test ]   
+    continue-on-error: true
+
 
 jobs:
   build:
@@ -23,6 +25,9 @@ jobs:
           cat filx.txt
           echo "========this is the grep test ====="
           awk '/BUILD SUCCESSFUL/,0' filx.txt 
+      - name: fail the job
+        run: ./gradlew test testCongressrentalnetworkUatDebugUnitTest 2>&1 >> testCongressrentalnetworkUatDebugUnitTest.txt 
+
       - name: build debug
         run: ./gradlew assembleDebug
       - name: Upload artifact to Firebase App Distribution
