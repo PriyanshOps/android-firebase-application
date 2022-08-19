@@ -1,6 +1,9 @@
 name: Build And Deploy App To Firebase Distribution
 
-on: [ pull_request ]
+# on: [ pull_request ]
+on:  
+  push:
+    branches: [ test ]   
 
 jobs:
   build:
@@ -14,7 +17,9 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: build clean
-        run: gradle clean   
+        run: | 
+          gradle clean --test 2>&1 | tee /tmp/gradle.out   
+          cat /tmp/gradle.out
       - name: build debug
         run: ./gradlew assembleDebug
       - name: Upload artifact to Firebase App Distribution
