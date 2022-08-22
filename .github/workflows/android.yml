@@ -26,7 +26,7 @@ jobs:
           awk '/BUILD SUCCESSFUL/,0' filx.txt 
       - name: fail the job
         run: | 
-          ./gradlew test testCongressrentalnetworkUatDebugUnitTest 2>&1 >> testCongressrentalnetworkUatDebugUnitTest.txt || true
+          ./gradlew test testCongressrentalnetworkUatDebugUnitTest >> testCongressrentalnetworkUatDebugUnitTest.txt || true
           echo "this is file ============================================"
           cat testCongressrentalnetworkUatDebugUnitTest.txt
           echo "========this is the grep test ====="
