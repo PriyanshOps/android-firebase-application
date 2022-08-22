@@ -25,8 +25,12 @@ jobs:
           echo "========this is the grep test ====="
           awk '/BUILD SUCCESSFUL/,0' filx.txt 
       - name: fail the job
-        run: ./gradlew test testCongressrentalnetworkUatDebugUnitTest 2>&1 >> testCongressrentalnetworkUatDebugUnitTest.txt 
-
+        run: | 
+          ./gradlew test testCongressrentalnetworkUatDebugUnitTest 2>&1 >> testCongressrentalnetworkUatDebugUnitTest.txt || true
+          echo "this is file ============================================"
+          cat testCongressrentalnetworkUatDebugUnitTest.txt
+          echo "========this is the grep test ====="
+          awk '/FAILURE/,0' testCongressrentalnetworkUatDebugUnitTest.txt      
       - name: build debug
         if: always()  
         run: ./gradlew assembleDebug
