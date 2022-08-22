@@ -24,13 +24,31 @@ jobs:
           cat filx.txt
           echo "========this is the grep test ====="
           awk '/BUILD SUCCESSFUL/,0' filx.txt 
-      - name: fail the job
-        run: | 
-          ./gradlew test testCongressrentalnetworkUatDebugUnitTest 2>&1 | tee testCongressrentalnetworkUatDebugUnitTest.txt || true
-          echo "this is file ============================================"
-          cat testCongressrentalnetworkUatDebugUnitTest.txt
-          echo "========this is the grep test ====="
-          awk '/FAILURE/,0' testCongressrentalnetworkUatDebugUnitTest.txt      
+      # - name: fail the job
+      #   run: | 
+      #     ./gradlew test testCongressrentalnetworkUatDebugUnitTest 2>&1 | tee testCongressrentalnetworkUatDebugUnitTest.txt || true
+      #     echo "this is file ============================================"
+      #     cat testCongressrentalnetworkUatDebugUnitTest.txt
+      #     echo "========this is the grep test ====="
+      #     awk '/FAILURE/,0' testCongressrentalnetworkUatDebugUnitTest.txt    
+
+      - name : Test Syntax Uat Debug Unit Test
+        if: always()
+        id: syntax_uat_debug
+        run :  |
+          ./gradlew test testSyntaxUatDebugUnitTest 2>&1 | tee testSyntaxUatDebugUnitTest.txt || true
+          awk -F"\t" '/FAILURE/,0' testSyntaxUatDebugUnitTest.txt
+          Syntax_uat_debug="$( awk -F"\t" '/FAILURE/,0' testSyntaxUatDebugUnitTest.txt )"
+          Syntax_uat_debug="${OUTPUT//'%'/'%25'}"
+          Syntax_uat_debug="${OUTPUT//$'\n'/'%0A'}"
+          Syntax_uat_debug="${OUTPUT//$'\r'/'%0D'}"
+          echo "::set-output name=syntax_content::$Syntax_uat_debug"
+
+      - name: Send a message to Microsoft Teams
+        run: |
+         echo ${{ steps.syntax_uat_debug.outputs.syntax_content }}
+
+          
       - name: build debug
         if: always()  
         run: ./gradlew assembleDebug
