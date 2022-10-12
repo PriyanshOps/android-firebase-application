@@ -4,40 +4,68 @@ on:
   # you define that your workflow should only trigger when you push to your master branch. Because a merge always includes also a push,
   # this workflow will also trigger when you merge your development into your master branch.
     branches: [ main ]  
+  pull_request:
+    types: [opened, synchronize, reopened]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: set up JDK 1.8
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
+#------------------------sonar configuration ---------------#
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew build sonarqube --info
+
+
+#------------------------sonar configuration end ---------------#
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: build clean
         run: gradle clean   
       - name: build debug
         run: ./gradlew assembleDebug
-      - run: |
-         pwd
-         cd app/
-         ls
-         echo "go to build"
-         cd build
-         ls
-         echo "=== go to /app/build/outputs/"
-         pwd   
-         cd outputs
-         echo "=== utputs/"               
-         cd apk
-         echo "apk code"
-         pwd
-         echo "cd  debug"
-         pwd
-         cd debug
-         pwd
-         ls
+      # - run: |
+      #    pwd
+      #    cd app/
+      #    ls
+      #    echo "go to build"
+      #    cd build
+      #    ls
+      #    echo "=== go to /app/build/outputs/"
+      #    pwd   
+      #    cd outputs
+      #    echo "=== utputs/"               
+      #    cd apk
+      #    echo "apk code"
+      #    pwd
+      #    echo "cd  debug"
+      #    pwd
+      #    cd debug
+      #    pwd
+      #    ls
          
       - name: Upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
